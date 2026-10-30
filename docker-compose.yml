@@ -1,0 +1,33 @@
+# Scénario A : à placer à côté des dossiers angular-app/ et springboot/
+# Remplacez <DOCKERHUB_USER> par votre nom d'utilisateur Docker Hub
+services:
+  mysql-service:
+    image: mysql:8
+    container_name: mysql-service
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  spring-app:
+    image: <DOCKERHUB_USER>/spring-app:latest
+    container_name: spring-app
+    depends_on:
+      - mysql-service
+    ports:
+      - "8081:8081"
+    restart: on-failure
+
+  angular-app:
+    image: <DOCKERHUB_USER>/angular-app:latest
+    container_name: angular-app
+    depends_on:
+      - spring-app
+    ports:
+      - "4200:80"
+
+volumes:
+  mysql-data:

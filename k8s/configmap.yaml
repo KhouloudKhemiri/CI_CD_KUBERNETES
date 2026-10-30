@@ -1,0 +1,10 @@
+# Variables NON sensibles
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  MYSQL_DATABASE: "demo"
+  DB_NAME: "demo"
+  DB_HOST: "mysql-service"
+  DB_USERNAME: "root"
